@@ -106,7 +106,7 @@
               <div class="d-flex align-items-center"> <!-- Align items in a row -->
                 <input type="submit" value="Upload" class="btn btn-primary my-2" />
                 <button type="button" id="discardBtn" class="btn btn-danger">Discard</button>
-            </div>
+              </div>
             </form>
           </div>
         </div>
@@ -114,18 +114,11 @@
 </section>
 
 <script>
-    // Fetch the test inference data from the server when the window loads
-    window.onload = function () {
-        fetch("/test_infer")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Success:", data); // Log the response data
-                alert(JSON.stringify(data)); // Display the response in an alert
-            })
-            .catch((error) => {
-                console.error("Error:", error); // Log any errors
-            });
-    };
+    // JavaScript function to handle discarding the image
+    document.getElementById("discardBtn").addEventListener("click", function() {
+        // Clear the value of the file input field
+        document.getElementById("formFileMultiple").value = "";
+    });
 </script>
 </body>
 </html>
