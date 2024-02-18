@@ -20,6 +20,7 @@ def home():
 @app.route("/user_photos", methods=['POST'])
 def user_photos():
     user_files = request.files.getlist('files[]')
+    skin_type = request.form['skin-type']
     all_classes = []
     
     for file in user_files:
@@ -41,7 +42,7 @@ def user_photos():
     bot_responses = []
     for class_name in all_classes:
         if class_name is not None:
-            bot_response = ai_bot.messages(class_name, "Oily", "Benzoyl Peroxide")
+            bot_response = ai_bot.messages(class_name, skin_type)
             bot_responses.append(bot_response)
 
     return render_template("return.html", bot_responses=bot_responses)
