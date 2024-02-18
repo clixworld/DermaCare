@@ -1,0 +1,24 @@
+.logo-container {
+    max-width: 130px;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    margin: 0; 
+    padding: 0; 
+}
+
+.body-color {
+    background-color: #FDE992;
+}
+
+.display {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 15px;
+    margin-right: 15px;
+}
