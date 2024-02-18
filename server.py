@@ -1,17 +1,22 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from gptresponse import ChatGPT
 from inference_sdk import InferenceHTTPClient
 import os
 import ast
+from threading import Lock
 
 ai_bot = ChatGPT()
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.environ.get("OPENAI_API_KEY")
 
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
     api_key="w6Up93MdGNyb5HbWu18r"
 )
+
+
+app.config['BOT_RESPONSES_LOCK'] = Lock()
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -27,17 +32,13 @@ def user_photos():
         temp_path = os.path.join('static/images', file.filename)
         file.save(temp_path)
         
-        # Call the Roboflow API with the image
         result = CLIENT.infer(temp_path, model_id="acne-detection-5x7wb/1")
         
-        # Extract the class from the result
         class_name = result['predictions'][0]['class'] if result['predictions'] else None
         all_classes.append(class_name)
         
-        # Clean up the saved file
         os.remove(temp_path)
 
-    # Pass the extracted classes to the chatbot
     bot_responses = []
     exists = []
     for class_name in all_classes:
@@ -49,6 +50,8 @@ def user_photos():
                 bot_responses.append(bot_response)
                 exists.append(class_name.upper())
             
+    with app.config['BOT_RESPONSES_LOCK']:
+        session['bot_responses'] = bot_responses
 
     return render_template("return.html", bot_responses=bot_responses, skin_type=skin_type)
 

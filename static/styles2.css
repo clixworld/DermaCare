@@ -12,10 +12,6 @@ body {
     padding: 0; 
 }
 
-.body-color {
-    background-color: #FDE992;
-}
-
 .display {
     display: flex;
     justify-content: space-evenly;
