@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Derma Care</title>
@@ -15,12 +15,15 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-      <style>
-        body {background: radial-gradient(at left center, #FE565B, #9A3686);
+    <style>
+        body {
+            background: radial-gradient(at left center, #FE565B, #9A3686);
             color: white; /* Set text color to white */
             overflow: hidden; /* Prevent horizontal scrolling */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
         }
-        
+
         /* Define the animation */
         @keyframes sparkle {
             0% {
@@ -33,84 +36,106 @@
                 opacity: 0;
             }
         }
-        
+
         /* Apply the animation to the element */
         .sparkling-text {
             animation: sparkle 2s linear infinite;
         }
+
+        /* Highlight effect */
+        .highlight {
+            background-color: #ffffff33; /* semi-transparent white */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Remove underline */
+            outline: none; /* Remove focus outline */
+        }
+
+        /* Add hover effect */
+        .highlight:hover {
+            background-color: #ffffff66; /* lighter semi-transparent white */
+        }
     </style>
 </head>
-
-  <body>
-    <section class="header">
-      <div class="container">
+<body>
+<section class="header">
+    <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4">
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-          >
-            <span class="fs-4">Derma Care</span>
-          </a>
-
-          <ul class="nav nav-pills">
-            <li class="nav-item">
-              <a href="#" class="nav-link text-dark" aria-current="page"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link text-dark" hidden>Support</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link text-dark" hidden>About</a>
-            </li>
-          </ul>
-        </header>
-      </div>
-    </section>
-    <section class="hero">
-      <div class="px-4 py-5 my-5 text-center">
-        <div class="d-block mx-auto mb-4">
-          <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
-          <div class="col-lg-6 mx-auto">
-            <p class="lead sparkling-text">Best Solution to Acne</p>
-            <form
-              method="POST"
-              enctype="multipart/form-data"
-              action="user_photos"
+            <a
+                    href="/"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
             >
-              <div class="mb-3">
-                <label for="formFileMultiple" class="form-label"
-                  >Upload Photos</label
-                >
-                <input
-                  class="form-control"
-                  type="file"
-                  id="formFileMultiple"
-                  name="files[]"
-                  multiple
-                />
-              </div>
-              <input type="submit" value="Upload" class="btn btn-primary" />
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+                <span class="fs-4">Derma Care</span>
+            </a>
 
-    <script>
-      // Fetch the test inference data from the server when the window loads
-      window.onload = function () {
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark" aria-current="page"
+                    >Home</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark" hidden>Support</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-dark" hidden>About</a>
+                </li>
+            </ul>
+        </header>
+    </div>
+</section>
+<section class="hero">
+    <div class="px-4 py-5 my-5 text-center">
+        <div class="d-block mx-auto mb-4">
+            <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead sparkling-text">Best Solution to Acne</p>
+                <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        action="user_photos"
+                >
+                    <div class="mb-3">
+                        <label for="formFileMultiple" class="form-label"
+                        >Upload Photos</label
+                        >
+                        <input
+                                class="form-control"
+                                type="file"
+                                id="formFileMultiple"
+                                name="files[]"
+                                multiple
+                        />
+                    </div>
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+
+                    <!-- Discard button as text with highlight effect -->
+                    <button type="button" id="discardBtn" class="btn btn-link text-white mt-2 highlight">Discard</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Fetch the test inference data from the server when the window loads
+    window.onload = function () {
         fetch("/test_infer")
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("Success:", data); // Log the response data
-            alert(JSON.stringify(data)); // Display the response in an alert
-          })
-          .catch((error) => {
-            console.error("Error:", error); // Log any errors
-          });
-      };
-    </script>
-  </body>
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data); // Log the response data
+                alert(JSON.stringify(data)); // Display the response in an alert
+            })
+            .catch((error) => {
+                console.error("Error:", error); // Log any errors
+            });
+    };
+
+    // Add event listener to discard button
+    document.getElementById('discardBtn').addEventListener('click', function() {
+        // Reset file input
+        document.getElementById('formFileMultiple').value = '';
+    });
+</script>
+</body>
 </html>
