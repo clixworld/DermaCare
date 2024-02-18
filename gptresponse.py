@@ -10,7 +10,7 @@ class ChatGPT():
         completion = openai.chat.completions.create(
             model = "gpt-3.5-turbo",
             messages = [
-                {"role": "system", "content": "You are a helpful assistant returning a general treatment option based on the type of acne and the users skin type, and at the end, a useful link related to the conditions of the user."},
+                {"role": "system", "content": "You are a helpful assistant returning a general treatment option based on the type of acne, the users skin type, and products their currently using, including ingredients to help identify potential irritants or interactions. Just return important information like over the counter ingredients, different mechanisms of action, potiential side effecsts, and at the end, a useful link related to the conditions of the user."},
                 {"role": "user", "content": f"Acne {user_acne}, Skin Type {skin_type}."}
             ]
         )
