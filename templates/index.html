@@ -15,7 +15,31 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-  </head>
+      <style>
+        body {background: radial-gradient(at left center, #FE565B, #9A3686);
+            color: white; /* Set text color to white */
+            overflow: hidden; /* Prevent horizontal scrolling */
+        }
+        
+        /* Define the animation */
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        
+        /* Apply the animation to the element */
+        .sparkling-text {
+            animation: sparkle 2s linear infinite;
+        }
+    </style>
+</head>
 
   <body>
     <section class="header">
@@ -49,7 +73,7 @@
         <div class="d-block mx-auto mb-4">
           <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
           <div class="col-lg-6 mx-auto">
-            <p class="lead">Best Solution to Acne</p>
+            <p class="lead sparkling-text">Best Solution to Acne</p>
             <form
               method="POST"
               enctype="multipart/form-data"
