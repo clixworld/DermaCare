@@ -14,5 +14,4 @@ class ChatGPT():
                 {"role": "user", "content": f"Acne {user_acne}, Skin Type {skin_type}, and products they currently used {products_currently_used}."}
             ]
         )
-        print(completion.choices[0].message.content)
         return(completion.choices[0].message.content)
