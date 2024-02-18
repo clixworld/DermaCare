@@ -1,8 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from gptresponse import ChatGPT
 from inference_sdk import InferenceHTTPClient
 import os
-import json
 
 ai_bot = ChatGPT()
 
@@ -42,12 +41,10 @@ def user_photos():
     bot_responses = []
     for class_name in all_classes:
         if class_name is not None:
-            # You might need to adjust the message format based on your bot's functionality
             bot_response = ai_bot.messages(class_name, "Oily", "Benzoyl Peroxide")
             bot_responses.append(bot_response)
 
-    # Return the bot responses as JSON
-    return jsonify(bot_responses)
+    return render_template("return.html", bot_responses=bot_responses)
 
 if __name__ == '__main__':
     app.run(debug=True)
