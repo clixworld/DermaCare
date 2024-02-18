@@ -90,7 +90,7 @@
         <div class="d-block mx-auto mb-4">
           <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
           <div class="col-6 mx-auto">
-            <p class="lead sparkling-text">Best Solution to Acne</p>
+            <p class="lead sparkling-text">Together, we've got a solution</p>
             <form method="POST" enctype="multipart/form-data" action="user_photos">
               <div class="mb-3">
                 <label for="formFileMultiple" class="form-label" hidden>Upload Photos</label>
@@ -114,18 +114,11 @@
 </section>
 
 <script>
-    // Fetch the test inference data from the server when the window loads
-    window.onload = function () {
-        fetch("/test_infer")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Success:", data); // Log the response data
-                alert(JSON.stringify(data)); // Display the response in an alert
-            })
-            .catch((error) => {
-                console.error("Error:", error); // Log any errors
-            });
-    };
+    // JavaScript function to handle discarding the image
+    document.getElementById("discardBtn").addEventListener("click", function() {
+        // Clear the value of the file input field
+        document.getElementById("formFileMultiple").value = "";
+    });
 </script>
 </body>
 </html>
