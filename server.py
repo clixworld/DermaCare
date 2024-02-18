@@ -43,7 +43,9 @@ def user_photos():
     for class_name in all_classes:
         if class_name is not None:
             bot_response = ai_bot.messages(class_name, skin_type)
+            print(bot_response[0])
             bot_responses.append(bot_response)
+            
 
     return render_template("return.html", bot_responses=bot_responses)
 
