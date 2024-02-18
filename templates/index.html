@@ -71,7 +71,7 @@
 
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-dark" aria-current="page"
+                    <a href="/" class="nav-link text-dark" aria-current="page"
                     >Home</a
                     >
                 </li>
@@ -88,24 +88,27 @@
 <section class="hero">
     <div class="px-4 py-5 my-5 text-center">
         <div class="d-block mx-auto mb-4">
-            <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
-            <div class="col-lg-6 mx-auto">
-                <p class="lead sparkling-text">Best Solution to Acne</p>
-                <form
-                    method="POST"
-                    enctype="multipart/form-data"
-                    action="user_photos"
-                >
-                    <div class="mb-3">
-                        <label for="formFileMultiple" class="form-label">Upload Photos</label>
-                        <input class="form-control" type="file" id="formFileMultiple" name="files[]" multiple />
-                    </div>
-                    <div class="d-flex align-items-center"> <!-- Align items in a row -->
-                        <input type="submit" value="Upload" class="btn btn-primary" />
-                        <button type="button" id="discardBtn" class="btn btn-danger">Discard</button>
-                    </div>
-                </form>
+          <h1 class="display-5 fw-bold text-body-emphasis">DermaCare</h1>
+          <div class="col-6 mx-auto">
+            <p class="lead sparkling-text">Best Solution to Acne</p>
+            <form method="POST" enctype="multipart/form-data" action="user_photos">
+              <div class="mb-3">
+                <label for="formFileMultiple" class="form-label" hidden>Upload Photos</label>
+                <input class="form-control" type="file" id="formFileMultiple" name="files[]" multiple/>
+              </div>
+              <select class="form-select" name="skin-type" aria-label="skin-type">
+                <option selected>Select Skin Type</option>
+                <option value="Oily">Oily</option>
+                <option value="Dry">Dry</option>
+                <option value="Combination">Combination</option>
+                <option value="Sensitive">Sensitive</option>
+              </select>
+              <div class="d-flex align-items-center"> <!-- Align items in a row -->
+                <input type="submit" value="Upload" class="btn btn-primary my-2" />
+                <button type="button" id="discardBtn" class="btn btn-danger">Discard</button>
             </div>
+            </form>
+          </div>
         </div>
     </div>
 </section>
