@@ -46,6 +46,29 @@
           {% endfor %}
       </div>
     </section>
+
+    <button type="button" class="btn btn-danger mx-auto d-block" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Send to Email
+    </button>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Send to Email</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/send_email" method="post">
+                    <input class="form-control" type="text" placeholder="Enter Email" name="email" id="email" required>
+                    <p><em>All email are kept secured and never disclosed</em></p>
+                    <button type="submit" class="btn btn-danger">Send</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
   </section>
 </body>
 </html>

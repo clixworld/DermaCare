@@ -3,7 +3,10 @@ from gptresponse import ChatGPT
 from inference_sdk import InferenceHTTPClient
 import os
 import ast
+import smtplib
 from threading import Lock
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 ai_bot = ChatGPT()
 
@@ -17,6 +20,7 @@ CLIENT = InferenceHTTPClient(
 
 
 app.config['BOT_RESPONSES_LOCK'] = Lock()
+app.config['SKIN_TYPE_LOCK'] = Lock()
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -46,14 +50,41 @@ def user_photos():
             if class_name.upper() not in exists:
                 bot_response = ai_bot.messages(class_name, skin_type)
                 bot_response = ast.literal_eval(bot_response)
-                print(bot_response["diagnosis"])
                 bot_responses.append(bot_response)
                 exists.append(class_name.upper())
             
     with app.config['BOT_RESPONSES_LOCK']:
         session['bot_responses'] = bot_responses
 
+    with app.config['SKIN_TYPE_LOCK']:
+        session['skin_type'] = skin_type
+
     return render_template("return.html", bot_responses=bot_responses, skin_type=skin_type)
 
+@app.route('/send_email', methods=['POST'])
+def send_message():
+    user_email = request.form["email"]
+    bot_responses = session.get('bot_responses', [])
+    skin_type = session.get('skin_type', '')
+
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
+        connection.starttls()
+        connection.login(os.getenv("EMAIL"), os.getenv("PASSWORD"))
+
+        message = MIMEMultipart()
+        message["From"] = os.getenv("EMAIL")
+        message["To"] = user_email
+        message["Subject"] = "DermaCare"
+
+        body = "Here's your suggestions: \n\n"
+        for response in bot_responses:
+            body += f"Evaluation: {response['diagnosis']}\n Overview: {response['overview']}\n Suggestion: {response['suggestion']}\n\n"
+
+        message.attach(MIMEText(body, "plain"))
+
+        connection.sendmail(from_addr=os.getenv("EMAIL"), to_addrs=user_email, msg=message.as_string())
+
+        return render_template("return.html", bot_responses=bot_responses, skin_type=skin_type)
+    
 if __name__ == '__main__':
     app.run(debug=True)
